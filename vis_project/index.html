@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+  /* set the CSS */
+
+  .line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 2px;
+  }
+</style>
+
+<body>
+
+  <!-- load the d3.js library -->
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script>
+
+    // set the dimensions and margins of the graph
+    var margin = { top: 20, right: 20, bottom: 30, left: 50 },
+      width = 960 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
+
+    // parse the date / time
+    var parseTime = d3.timeParse("%Y-%e-%m-H%I");
+
+    // set the ranges
+    var x = d3.scaleTime().range([0, width]);
+    var y = d3.scaleLinear().range([height, 0]);
+
+    // define the 1st line
+    var valueline = d3.line()
+      .x(function (d) { return x(d.date); })
+      .y(function (d) { return y(d.a); });
+
+    // define the 2nd line
+    var valueline2 = d3.line()
+      .x(function (d) { return x(d.date); })
+      .y(function (d) { return y(d.b); });
+
+    // define the 2nd line
+    var valueline3 = d3.line()
+      .x(function (d) { return x(d.date); })
+      .y(function (d) { return y(d.c); });
+    // define the 2nd line
+    var valueline4 = d3.line()
+      .x(function (d) { return x(d.date); })
+      .y(function (d) { return y(d.d); });
+
+
+    // define the 2nd line
+    var valueline5 = d3.line()
+      .x(function (d) { return x(d.date); })
+      .y(function (d) { return y(d.e); });
+
+
+    // define the 2nd line
+    var valueline6 = d3.line()
+      .x(function (d) { return x(d.date); })
+      .y(function (d) { return y(d.f); });
+
+
+    // define the 2nd line
+    var valueline7 = d3.line()
+      .x(function (d) { return x(d.date); })
+      .y(function (d) { return y(d.g); });
+
+
+    // define the 2nd line
+    var valueline8 = d3.line()
+      .x(function (d) { return x(d.date); })
+      .y(function (d) { return y(d.h); });
+
+
+    // define the 2nd line
+    var valueline9 = d3.line()
+      .x(function (d) { return x(d.date); })
+      .y(function (d) { return y(d.i); });
+
+
+    // define the 2nd line
+    var valueline10 = d3.line()
+      .x(function (d) { return x(d.date); })
+      .y(function (d) { return y(d.j); });
+
+
+    // define the 2nd line
+    var valueline11 = d3.line()
+      .x(function (d) { return x(d.date); })
+      .y(function (d) { return y(d.k); });
+
+
+    // define the 2nd line
+    var valueline12 = d3.line()
+      .x(function (d) { return x(d.date); })
+      .y(function (d) { return y(d.l); });
+
+
+    // define the 2nd line
+    var valueline13 = d3.line()
+      .x(function (d) { return x(d.date); })
+      .y(function (d) { return y(d.m); });
+
+
+    // define the 2nd line
+    var valueline14 = d3.line()
+      .x(function (d) { return x(d.date); })
+      .y(function (d) { return y(d.n); });
+
+
+    // define the 2nd line
+    var valueline15 = d3.line()
+      .x(function (d) { return x(d.date); })
+      .y(function (d) { return y(d.o); });
+
+
+    // define the 2nd line
+    var valueline16 = d3.line()
+      .x(function (d) { return x(d.date); })
+      .y(function (d) { return y(d.p); });
+
+    // define the 2nd line
+    var valueline17 = d3.line()
+      .x(function (d) { return x(d.date); })
+      .y(function (d) { return y(d.q); });
+
+
+    // define the 2nd line
+    var valueline18 = d3.line()
+      .x(function (d) { return x(d.date); })
+      .y(function (d) { return y(d.r); });
+
+
+    // define the 2nd line
+    var valueline19 = d3.line()
+      .x(function (d) { return x(d.date); })
+      .y(function (d) { return y(d.s); });
+
+
+    // define the 2nd line
+    var valueline20 = d3.line()
+      .x(function (d) { return x(d.date); })
+      .y(function (d) { return y(d.t); });
+
+
+    // define the 2nd line
+    var valueline21 = d3.line()
+      .x(function (d) { return x(d.date); })
+      .y(function (d) { return y(d.u); });
+
+
+
+
+    // append the svg obgect to the body of the page
+    // appends a 'group' element to 'svg'
+    // moves the 'group' element to the top left margin
+    var svg = d3.select("body").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform",
+        "translate(" + margin.left + "," + margin.top + ")");
+
+    // Get the data
+    d3.csv("processed.csv", function (error, data) {
+      if (error) throw error;
+
+      // format the data
+      data.forEach(function (d) {
+        d.date = parseTime(d.date);
+        d.a = +d.a;
+        d.b = +d.b;
+        d.c = +d.c;
+        d.d = +d.d;
+        d.e = +d.e;
+        d.f = +d.f;
+        d.g = +d.g;
+        d.h = +d.h;
+        d.i = +d.i;
+        d.j = +d.j;
+        d.k = +d.k;
+        d.l = +d.l;
+        d.m = +d.m;
+        d.n = +d.n;
+        d.o = +d.o;
+        d.p = +d.p;
+        d.q = +d.q;
+        d.r = +d.r;
+        d.s = +d.s;
+        d.t = +d.t;
+        d.u = +d.u;
+        d.v = +d.v;
+      });
+
+      // Scale the range of the data
+      x.domain(d3.extent(data, function (d) { return d.date; }));
+      y.domain([0, d3.max(data, function (d) {
+        return Math.max(d.a, d.b);
+      })]);
+
+      // Add the valueline path.
+      svg.append("path")
+        .data([data])
+        .attr("class", "line")
+        .attr("d", valueline);
+      svg.append("path")
+        .data([data])
+        .attr("class", "line")
+        .style("stroke", "red")
+        .attr("d", valueline2);
+      svg.append("path")
+        .data([data])
+        .attr("class", "line")
+        .style("stroke", "red")
+        .attr("d", valueline3);
+      // Add the valueline2 path.
+      svg.append("path")
+        .data([data])
+        .attr("class", "line")
+        .style("stroke", "red")
+        .attr("d", valueline4);
+
+      svg.append("path")
+        .data([data])
+        .attr("class", "line")
+        .style("stroke", "blue")
+        .attr("d", valueline5);
+
+      svg.append("path")
+        .data([data])
+        .attr("class", "line")
+        .style("stroke", "blue")
+        .attr("d", valueline6);
+
+      svg.append("path")
+        .data([data])
+        .attr("class", "line")
+        .style("stroke", "blue")
+        .attr("d", valueline7);
+
+      svg.append("path")
+        .data([data])
+        .attr("class", "line")
+        .style("stroke", "blue")
+        .attr("d", valueline8);
+
+      svg.append("path")
+        .data([data])
+        .attr("class", "line")
+        .style("stroke", "blue")
+        .attr("d", valueline9);
+
+      svg.append("path")
+        .data([data])
+        .attr("class", "line")
+        .style("stroke", "blue")
+        .attr("d", valueline10);
+
+      svg.append("path")
+        .data([data])
+        .attr("class", "line")
+        .style("stroke", "blue")
+        .attr("d", valueline11);
+
+      svg.append("path")
+        .data([data])
+        .attr("class", "line")
+        .style("stroke", "blue")
+        .attr("d", valueline12);
+
+      svg.append("path")
+        .data([data])
+        .attr("class", "line")
+        .style("stroke", "blue")
+        .attr("d", valueline13);
+
+      svg.append("path")
+        .data([data])
+        .attr("class", "line")
+        .style("stroke", "blue")
+        .attr("d", valueline14);
+
+      svg.append("path")
+        .data([data])
+        .attr("class", "line")
+        .style("stroke", "blue")
+        .attr("d", valueline15);
+
+      svg.append("path")
+        .data([data])
+        .attr("class", "line")
+        .style("stroke", "blue")
+        .attr("d", valueline16);
+
+      svg.append("path")
+        .data([data])
+        .attr("class", "line")
+        .style("stroke", "blue")
+        .attr("d", valueline17);
+
+      svg.append("path")
+        .data([data])
+        .attr("class", "line")
+        .style("stroke", "blue")
+        .attr("d", valueline18);
+
+      svg.append("path")
+        .data([data])
+        .attr("class", "line")
+        .style("stroke", "blue")
+        .attr("d", valueline19);
+
+      svg.append("path")
+        .data([data])
+        .attr("class", "line")
+        .style("stroke", "blue")
+        .attr("d", valueline20);
+
+      svg.append("path")
+        .data([data])
+        .attr("class", "line")
+        .style("stroke", "blue")
+        .attr("d", valueline21);
+
+
+      // Add the X Axis
+      svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+
+      // Add the Y Axis
+      svg.append("g")
+        .call(d3.axisLeft(y));
+
+    });
+
+  </script>
+</body>

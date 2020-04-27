@@ -1,0 +1,10 @@
+-index.html contiene el codigo de la aplicación
+-data2.csv contiene el dataset a mostrar
+-dentro de data2.csv hay 3 columnas, date, open y close, la primera contiene la fecha cada columna es una grafica a mostrar (en este caso hay dos columnas open y close, por tanto 2 graficas)
+-para ajustar esto a los datos del proyecto, cambia date por horas (de 1 a 24) y pon los datos de cada estación en una columna
+
+-para lanzar el proyecto:
+    abre una consola dentro de la carpeta del proyecto
+    usa el comando python3 -m http.server 1234
+    abre un navegador (chrome o firefox)
+    ve a http://localhost:1234

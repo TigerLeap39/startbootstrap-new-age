@@ -33,7 +33,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Bootstrap</a>
+      <a class="navbar-brand js-scroll-trigger" href="http://mugi.webs.upv.es/">MUGI UPV</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         Menu
         <i class="fas fa-bars"></i>
@@ -41,13 +41,13 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#download">Download</a>
+            <a class="nav-link js-scroll-trigger" href="#page-top">Descripción</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#features">Features</a>
+            <a class="nav-link js-scroll-trigger" href="#features">Grafico</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+            <a class="nav-link js-scroll-trigger" href="#contact">Información</a>
           </li>
         </ul>
       </div>
@@ -59,22 +59,16 @@
       <div class="row h-100">
         <div class="col-lg-7 my-auto">
           <div class="header-content mx-auto">
-            <h1 class="mb-5">New Age is an app landing page that will help you beautifully showcase your new mobile app, or anything else!</h1>
-            <a href="#download" class="btn btn-outline btn-xl js-scroll-trigger">Start Now for Free!</a>
+            <h1 class="mb-5">Calidad del Aire de Madrid en Tiempo Real. Desarrollado Con la Arquitectura Serverless</h1>
+            <h4>El proyecto ha sido creado para visualizar el nivel de Dióxido de Nitrógeno (NO2) de Madrid en tiempo real. Los datos se extraen por los contadores (estaciones) que están situados por toda la ciudad.
+              <br>Para este proyecto fue utilisado los siguientes servicios serverless de Amazon Web Services<br><br>AWS Lambda: para el despliegue de la función de descarga y procesamiento de los datos.<br>S3: para el alojamiento de los datos y la página web.</h4>
+            <a href="#features" class="btn btn-outline btn-xl js-scroll-trigger">Ver el grafico</a>
           </div>
         </div>
         <div class="col-lg-5 my-auto">
-          <div class="device-container">
-            <div class="device-mockup iphone6_plus portrait white">
-              <div class="device">
-                <div class="screen">
-                  <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
-                  <img src="img/demo-screen-1.jpg" class="img-fluid" alt="">
-                </div>
-                <div class="button">
-                  <!-- You can hook the "home button" to some JavaScript events or just remove it -->
-                </div>
-              </div>
+          <div class="container">
+            <div class="map">
+              <iframe src="https://www.google.com/maps/d/embed?mid=1iMGoIXbiT969-iDyKrV7rBd_zaSUJy4I" width="440" height="500"></iframe>
             </div>
           </div>
         </div>
@@ -82,89 +76,342 @@
     </div>
   </header>
 
-  <section class="download bg-primary text-center" id="download">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8 mx-auto">
-          <h2 class="section-heading">Discover what all the buzz is about!</h2>
-          <p>Our app is available on any mobile device! Download now to get started!</p>
-          <div class="badges">
-            <a class="badge-link" href="#"><img src="img/google-play-badge.svg" alt=""></a>
-            <a class="badge-link" href="#"><img src="img/app-store-badge.svg" alt=""></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section class="features" id="features">
     <div class="container">
       <div class="section-heading text-center">
-        <h2>Unlimited Features, Unlimited Fun</h2>
-        <p class="text-muted">Check out what you can do with this app theme!</p>
+        <h2>El Nivel de NO2 de Madrid.</h2>
+        <!--<p class="text-muted">Check out what you can do with this app theme!</p> -->
         <hr>
+        <!-- img src="img/graph.png" class="img-fluid" alt="" -->
+        <style>
+          /* set the CSS */
+        
+          .line {
+            fill: none;
+            stroke: steelblue;
+            stroke-width: 2px;
+          }
+        </style>
+        <!-- load the d3.js library -->
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script>
+          
+          // set the dimensions and margins of the graph
+          var margin = { top: 20, right: 20, bottom: 30, left: 50 },
+            width = 1200 - margin.left - margin.right,
+            height = 500 - margin.top - margin.bottom;
+
+          // parse the date / time
+          var parseTime = d3.timeParse("%Y-%e-%m-H%I");
+
+          // set the ranges
+          var x = d3.scaleTime().range([0, width]);
+          var y = d3.scaleLinear().range([height, 0]);
+
+          // define the 1st line
+          var valueline = d3.line()
+            .x(function (d) { return x(d.date); })
+            .y(function (d) { return y(d.a); });
+
+          // define the 2nd line
+          var valueline2 = d3.line()
+            .x(function (d) { return x(d.date); })
+            .y(function (d) { return y(d.b); });
+
+          // define the 3nd line
+          var valueline3 = d3.line()
+            .x(function (d) { return x(d.date); })
+            .y(function (d) { return y(d.c); });
+    
+          // define the 4nd line
+          var valueline4 = d3.line()
+            .x(function (d) { return x(d.date); })
+            .y(function (d) { return y(d.d); });
+
+          // define the 5nd line
+          var valueline5 = d3.line()
+            .x(function (d) { return x(d.date); })
+            .y(function (d) { return y(d.e); });
+
+          // define the 6nd line
+          var valueline6 = d3.line()
+            .x(function (d) { return x(d.date); })
+            .y(function (d) { return y(d.f); });
+
+          // define the 7nd line
+          var valueline7 = d3.line()
+            .x(function (d) { return x(d.date); })
+            .y(function (d) { return y(d.g); });
+
+        // define the 8nd line
+        var valueline8 = d3.line()
+          .x(function (d) { return x(d.date); })
+          .y(function (d) { return y(d.h); });
+
+        // define the 9nd line
+        var valueline9 = d3.line()
+          .x(function (d) { return x(d.date); })
+          .y(function (d) { return y(d.i); });
+
+        // define the 10nd line
+        var valueline10 = d3.line()
+          .x(function (d) { return x(d.date); })
+          .y(function (d) { return y(d.j); });
+
+        // define the 11nd line
+        var valueline11 = d3.line()
+          .x(function (d) { return x(d.date); })
+          .y(function (d) { return y(d.k); });
+
+        // define the 12nd line
+       var valueline12 = d3.line()
+          .x(function (d) { return x(d.date); })
+          .y(function (d) { return y(d.l); });
+
+        // define the 13nd line
+        var valueline13 = d3.line()
+          .x(function (d) { return x(d.date); })
+          .y(function (d) { return y(d.m); });
+
+        // define the 14nd line
+        var valueline14 = d3.line()
+          .x(function (d) { return x(d.date); })
+          .y(function (d) { return y(d.n); });
+
+        // define the 15nd line
+        var valueline15 = d3.line()
+          .x(function (d) { return x(d.date); })
+          .y(function (d) { return y(d.o); });
+
+        // define the 16nd line
+        var valueline16 = d3.line()
+          .x(function (d) { return x(d.date); })
+          .y(function (d) { return y(d.p); });
+
+       // define the 17nd line
+        var valueline17 = d3.line()
+          .x(function (d) { return x(d.date); })
+          .y(function (d) { return y(d.q); });
+
+        // define the 18nd line
+        var valueline18 = d3.line()
+          .x(function (d) { return x(d.date); })
+          .y(function (d) { return y(d.r); });
+
+        // define the 19nd line
+        var valueline19 = d3.line()
+          .x(function (d) { return x(d.date); })
+          .y(function (d) { return y(d.s); });
+
+        // define the 20nd line
+        var valueline20 = d3.line()
+          .x(function (d) { return x(d.date); })
+          .y(function (d) { return y(d.t); });
+
+        // define the 21nd line
+        var valueline21 = d3.line()
+          .x(function (d) { return x(d.date); })
+          .y(function (d) { return y(d.u); });
+
+
+        // append the svg obgect to the body of the page
+        // appends a 'group' element to 'svg'
+        // moves the 'group' element to the top left margin
+        var svg = d3.select("body").append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+          .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+
+        // Get the data
+        d3.csv("data/processed_copy.csv", function (error, data) {
+          if (error) throw error;
+          
+          // format the data
+          data.forEach(function (d) {
+            d.date = parseTime(d.date);
+            d.a = +d.a;
+            d.b = +d.b;
+            d.c = +d.c;
+            d.d = +d.d;
+            d.e = +d.e;
+            d.f = +d.f;
+            d.g = +d.g;
+            d.h = +d.h;
+            d.i = +d.i;
+            d.j = +d.j;
+            d.k = +d.k;
+            d.l = +d.l;
+            d.m = +d.m;
+            d.n = +d.n;
+            d.o = +d.o;
+            d.p = +d.p;
+            d.q = +d.q;
+            d.r = +d.r;
+            d.s = +d.s;
+            d.t = +d.t;
+            d.u = +d.u;
+            d.v = +d.v;
+          });
+
+          // Scale the range of the data
+         x.domain(d3.extent(data, function (d) { return d.date; }));
+         y.domain([0, d3.max(data, function (d) {
+            return Math.max(d.a, d.b);
+           })]);
+
+         // Add the valueline path.
+          svg.append("path")
+            .data([data])
+            .attr("class", "line")
+            .attr("d", valueline);
+          svg.append("path")
+            .data([data])
+            .attr("class", "line")
+            .style("stroke", "red")
+            .attr("d", valueline2);
+          svg.append("path")
+            .data([data])
+            .attr("class", "line")
+            .style("stroke", "red")
+            .attr("d", valueline3);
+          // Add the valueline2 path.
+          svg.append("path")
+            .data([data])
+            .attr("class", "line")
+            .style("stroke", "red")
+            .attr("d", valueline4);
+
+          svg.append("path")
+            .data([data])
+            .attr("class", "line")
+            .style("stroke", "blue")
+            .attr("d", valueline5);
+
+          svg.append("path")
+            .data([data])
+            .attr("class", "line")
+            .style("stroke", "blue")
+            .attr("d", valueline6);
+
+          svg.append("path")
+            .data([data])
+            .attr("class", "line")
+            .style("stroke", "blue")
+            .attr("d", valueline7);
+
+          svg.append("path")
+            .data([data])
+            .attr("class", "line")
+            .style("stroke", "blue")
+            .attr("d", valueline8);
+
+          svg.append("path")
+            .data([data])
+            .attr("class", "line")
+            .style("stroke", "blue")
+            .attr("d", valueline9);
+
+          svg.append("path")
+            .data([data])
+            .attr("class", "line")
+            .style("stroke", "blue")
+            .attr("d", valueline10);
+
+          svg.append("path")
+            .data([data])
+            .attr("class", "line")
+            .style("stroke", "blue")
+            .attr("d", valueline11);
+
+          svg.append("path")
+            .data([data])
+            .attr("class", "line")
+            .style("stroke", "blue")
+            .attr("d", valueline12);
+
+          svg.append("path")
+            .data([data])
+            .attr("class", "line")
+            .style("stroke", "blue")
+            .attr("d", valueline13);
+
+          svg.append("path")
+            .data([data])
+            .attr("class", "line")
+            .style("stroke", "blue")
+            .attr("d", valueline14);
+
+          svg.append("path")
+            .data([data])
+            .attr("class", "line")
+            .style("stroke", "blue")
+            .attr("d", valueline15);
+
+          svg.append("path")
+            .data([data])
+            .attr("class", "line")
+            .style("stroke", "blue")
+            .attr("d", valueline16);
+
+          svg.append("path")
+            .data([data])
+            .attr("class", "line")
+            .style("stroke", "blue")
+           .attr("d", valueline17);
+
+          svg.append("path")
+            .data([data])
+            .attr("class", "line")
+            .style("stroke", "blue")
+            .attr("d", valueline18);
+
+          svg.append("path")
+            .data([data])
+            .attr("class", "line")
+            .style("stroke", "blue")
+            .attr("d", valueline19);
+
+          svg.append("path")
+            .data([data])
+            .attr("class", "line")
+            .style("stroke", "blue")
+            .attr("d", valueline20);
+
+          svg.append("path")
+            .data([data])
+            .attr("class", "line")
+            .style("stroke", "blue")
+            .attr("d", valueline21);
+
+          // Add the X Axis
+            svg.append("g")
+              .attr("transform", "translate(0," + height + ")")
+              .call(d3.axisBottom(x));
+
+          // Add the Y Axis
+            svg.append("g")
+              .call(d3.axisLeft(y));
+
+        });
+
+        </script>
       </div>
-      <div class="row">
-        <div class="col-lg-4 my-auto">
-          <div class="device-container">
-            <div class="device-mockup iphone6_plus portrait white">
-              <div class="device">
-                <div class="screen">
-                  <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
-                  <img src="img/demo-screen-1.jpg" class="img-fluid" alt="">
-                </div>
-                <div class="button">
-                  <!-- You can hook the "home button" to some JavaScript events or just remove it -->
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-8 my-auto">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="feature-item">
-                  <i class="icon-screen-smartphone text-primary"></i>
-                  <h3>Device Mockups</h3>
-                  <p class="text-muted">Ready to use HTML/CSS device mockups, no Photoshop required!</p>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="feature-item">
-                  <i class="icon-camera text-primary"></i>
-                  <h3>Flexible Use</h3>
-                  <p class="text-muted">Put an image, video, animation, or anything else in the screen!</p>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="feature-item">
-                  <i class="icon-present text-primary"></i>
-                  <h3>Free to Use</h3>
-                  <p class="text-muted">As always, this theme is free to download and use for any purpose!</p>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="feature-item">
-                  <i class="icon-lock-open text-primary"></i>
-                  <h3>Open Source</h3>
-                  <p class="text-muted">Since this theme is MIT licensed, you can use it commercially!</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      
     </div>
   </section>
 
   <section class="cta">
     <div class="cta-content">
       <div class="container">
-        <h2>Stop waiting.<br>Start building.</h2>
-        <a href="#contact" class="btn btn-outline btn-xl js-scroll-trigger">Let's Get Started!</a>
+        <!--<h4>Fuente:<br>El portal de Datos Abiertos de Madrid</h4> (old version of text)-->
+        <style scoped>
+          .whiteText {color:white;}
+          </style>
+          <p class="whiteText">TODOS LOS DATOS HAN SIDO OBTENIDOS DEL PORTAL DE DATOS ABIERTOS DE MADRID.</p>
+          
+        <a href="https://datos.madrid.es/sites/v/index.jsp?vgnextoid=41e01e007c9db410VgnVCM2000000c205a0aRCRD&vgnextchannel=374512b9ace9f310VgnVCM100000171f5a0aRCRD" class="btn btn-outline btn-xl js-scroll-trigger">Visitar el Portal</a>
       </div>
     </div>
     <div class="overlay"></div>
@@ -172,23 +419,14 @@
 
   <section class="contact bg-primary" id="contact">
     <div class="container">
-      <h2>We
+      <h2>I
         <i class="fas fa-heart"></i>
-        new friends!</h2>
+        Data Science!</h2><br><h3>Luiza Petrosyan</h3>
       <ul class="list-inline list-social">
-        <li class="list-inline-item social-twitter">
-          <a href="#">
-            <i class="fab fa-twitter"></i>
-          </a>
-        </li>
-        <li class="list-inline-item social-facebook">
-          <a href="#">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-        </li>
-        <li class="list-inline-item social-google-plus">
-          <a href="#">
-            <i class="fab fa-google-plus-g"></i>
+        
+        <li class="list-inline-item social-linkedin">
+          <a href="https://es.linkedin.com/in/luiza-petrosyan-29a266163">
+            <i class="fab fa-linkedin"></i>
           </a>
         </li>
       </ul>
@@ -197,7 +435,7 @@
 
   <footer>
     <div class="container">
-      <p>&copy; Your Website 2019. All Rights Reserved.</p>
+      <p>&copy; Tiger Leap 2020. All Rights Reserved.</p>
       <ul class="list-inline">
         <li class="list-inline-item">
           <a href="#">Privacy</a>
